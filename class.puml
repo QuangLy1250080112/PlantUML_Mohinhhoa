@@ -1,0 +1,118 @@
+@startuml name "Hệ thống Triển lãm Trực tuyến Tương tác" title "Class Diagram - Hệ thống Triển lãm Trực tuyến Tương tác"
+class User {
+  -userID : String
+  -username : String
+  -fullName : String
+  -email : String
+  -role : RoleEnum
+}
+
+class BienTapVienController {
+  -controllerID : String
+  -sessionUser : String
+}
+
+class MediaOptimizationService {
+  -serviceName : String
+}
+
+class AccessibilityValidator {
+  -validatorVersion : String
+}
+
+class ExhibitionController {
+  -controllerID : String
+  -activeRoute : String
+}
+
+class TuyenThamQuanRoute {
+  -routeID : String
+  -routeName : String
+  -estimatedDuration : Int
+  -isAccessiblePath : Boolean
+}
+
+class TuyenThamQuanNode {
+  -nodeID : String
+  -nodeName : String
+  -positionX : Float
+  -positionY : Float
+  -positionZ : Float
+}
+
+class CauChuyen {
+  -cauChuyenID : String
+  -title : String
+  -synopsis : String
+  -author : String
+  -status : StatusEnum
+}
+
+class CauChuyenStep {
+  -stepID : String
+  -stepOrder : Int
+  -heading : String
+  -contentBody : String
+}
+
+class Collection {
+  -collectionID : String
+  -title : String
+  -description : String
+  -theme : String
+  -isPublished : Boolean
+}
+
+class Artifact {
+  -artifactId : String
+  -name : String
+  -origin : String
+  -historicalPeriod : String
+  -material : String
+}
+
+class MediaFile {
+  -mediaID : String
+  -fileName : String
+  -mediaType : MediaTypeEnum
+  -fileSizeByte : Long
+}
+
+class MediaOptimization {
+  -optID : String
+  -variantType : String
+  -filePath : String
+  -compressedSizeByte : Long
+}
+
+class AccessibilityMeta {
+  -accessibilityID : String
+  -altText : String
+  -audioDescriptionUrl : String
+  -transcriptText : String
+  -ariaLabel : String
+}
+
+User "1" -- "*" BienTapVienController
+BienTapVienController -- MediaOptimizationService
+BienTapVienController -- AccessibilityValidator
+
+ExhibitionController -- CauChuyen
+ExhibitionController -- TuyenThamQuanRoute
+
+TuyenThamQuanRoute "1" *-- "*" TuyenThamQuanNode
+CauChuyen "1" *-- "*" CauChuyenStep
+
+TuyenThamQuanNode "*" -- "0..1" CauChuyenStep
+TuyenThamQuanNode "*" -- "0..1" Artifact
+
+Collection "1" -- "*" Artifact
+CauChuyenStep "*" -- "0..1" Artifact
+
+CauChuyenStep "1" -- "*" MediaFile
+Artifact "1" -- "*" MediaFile
+
+MediaFile "1" *-- "*" MediaOptimization
+MediaFile "1" -- "0..1" AccessibilityMeta
+Artifact "1" -- "0..1" AccessibilityMeta
+@endl

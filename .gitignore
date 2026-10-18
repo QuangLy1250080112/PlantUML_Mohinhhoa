@@ -1,0 +1,7 @@
+# Bỏ qua các tệp hình ảnh xuất ra
+*.png
+*.svg
+*.pdf
+
+# Bỏ qua cấu hình riêng của VS Code
+.vscode/

@@ -1,0 +1,27 @@
+@startuml name "Hệ thống Triển lãm Trực tuyến Tương tác" title "Use Case Diagram - Hệ thống Triển lãm Trực tuyến Tương tác"
+left to right direction
+
+actor "Khách tham quan\n(Visitor)" as Visitor
+actor "Biên tập viên\n(Curator)" as Curator
+actor "Quản trị viên\n(Admin)" as Admin
+actor "Dịch vụ hệ thống\n(System Core Service)" as SystemService
+
+rectangle "Hệ thống Triển lãm Trực tuyến Tương tác" {
+  usecase "Trải nghiệm triển lãm" as UC1
+  usecase "Quản lý nội dung triển lãm" as UC2
+  usecase "Quản lý tài khoản" as UC3
+  usecase "Xuất bản triển lãm" as UC4
+  usecase "Quản trị hệ thống" as UC5
+}
+
+Visitor -- UC1
+Curator -- UC2
+Curator -- UC3
+Curator -- UC4
+
+Admin -- UC3
+Admin -- UC4
+Admin -- UC5
+
+SystemService -- UC5
+@endl

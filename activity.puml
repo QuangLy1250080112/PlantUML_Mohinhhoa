@@ -1,0 +1,44 @@
+@startuml name "Hệ thống Triển lãm Trực tuyến Tương tác" title "Activity Diagram - Hệ thống Triển lãm Trực tuyến Tương tác"
+|Biên tập viên|
+start
+:Đăng nhập hệ thống;
+
+|Hệ thống xử lý|
+:Xác thực & Phân quyền;
+
+|Biên tập viên|
+:Tạo & Quản lý Hiện vật;
+
+|Hệ thống xử lý|
+:Tải lên & Tối ưu Media (WebP/3D);
+:Biên tập Dữ liệu Accessibility (Alt-text, Audio);
+
+|Biên tập viên|
+:Biên tập Câu chuyện triển lãm;
+:Thiết kế Tuyến tham quan (Sơ đồ & Tọa độ);
+:Gửi yêu cầu xuất bản;
+
+|Quản trị viên|
+:UC09: Kiểm duyệt nội dung & Accessibility;
+
+|Hệ thống xử lý|
+if (Đạt tiêu chuẩn?) then ([Cần sửa])
+  :Gửi thông báo yêu cầu chỉnh sửa;
+  stop
+else ([Chấp nhận])
+  :Công khai Triển lãm;
+endif
+
+|Khách tham quan|
+:Truy cập Triển lãm;
+:Khám phá theo Câu chuyện / Tuyến đường;
+:Tương tác qua Bàn phím & Screen Reader;
+
+|Hệ thống xử lý|
+:Ghi nhận nhật ký tương tác;
+:Tổng hợp & Thống kê dữ liệu;
+
+|Quản trị viên|
+:Xem Báo cáo thống kê hệ thống;
+stop
+@endl
