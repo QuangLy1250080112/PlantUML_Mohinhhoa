@@ -1,4 +1,10 @@
 @startuml name "Hệ thống Triển lãm Trực tuyến Tương tác" title "Class Diagram - Hệ thống Triển lãm Trực tuyến Tương tác"
+' Tắt biểu tượng chữ C màu xanh ở tiêu đề lớp
+hide circle
+
+' Chuyển icon ô vuông đỏ thành ký tự dấu trừ (-) dạng text
+skinparam classAttributeIconSize 0
+
 class User {
   -userID : String
   -username : String
@@ -93,6 +99,7 @@ class AccessibilityMeta {
   -ariaLabel : String
 }
 
+' Khai báo quan hệ dữ liệu chuẩn theo hướng kết nối mẫu
 User "1" -- "*" BienTapVienController
 BienTapVienController -- MediaOptimizationService
 BienTapVienController -- AccessibilityValidator

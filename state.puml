@@ -1,5 +1,7 @@
 @startuml name "Hệ thống Triển lãm Trực tuyến Tương tác" title "State Diagram - Hệ thống Triển lãm Trực tuyến Tương tác"
-[*] --> State1 : createUser()
+left to right direction
+skinparam sqlite true
+skinparam style strictuml
 
 state "Khởi tạo / Chưa đăng nhập" as State1 {
   State1 : entry/ isAuthenticated = false
@@ -9,9 +11,15 @@ state "Đã xác thực / Hoạt động" as State2 {
   State2 : entry/ isAuthenticated = true
 }
 
-State1 --> State2 : authenticate(password)\n[mật khẩu chính xác]
-State2 --> State2 : updateProfile()\n[thông tin hợp lệ]
-State2 --> State1 : logout() / sessionExpired()
-State2 --> [*] : deleteAccount()
-State1 --> [*] : cancelRegistration()
+[*] -right-> State1 : createUser()
+
+State1 -right-> State2 : authenticate(password)\n[mật khẩu chính xác]
+
+State2 -up-> State2 : updateProfile()\n[thông tin hợp lệ]
+
+State2 -down-> State1 : logout() / sessionExpired()
+
+State2 -right-> [*] : deleteAccount()
+
+State1 -down-> [*] : cancelRegistration()
 @endl

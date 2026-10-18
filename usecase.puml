@@ -1,10 +1,9 @@
 @startuml name "Hệ thống Triển lãm Trực tuyến Tương tác" title "Use Case Diagram - Hệ thống Triển lãm Trực tuyến Tương tác"
 left to right direction
 
+' Khai báo Tác nhân bên trái
 actor "Khách tham quan\n(Visitor)" as Visitor
 actor "Biên tập viên\n(Curator)" as Curator
-actor "Quản trị viên\n(Admin)" as Admin
-actor "Dịch vụ hệ thống\n(System Core Service)" as SystemService
 
 rectangle "Hệ thống Triển lãm Trực tuyến Tương tác" {
   usecase "Trải nghiệm triển lãm" as UC1
@@ -14,14 +13,20 @@ rectangle "Hệ thống Triển lãm Trực tuyến Tương tác" {
   usecase "Quản trị hệ thống" as UC5
 }
 
+' Khai báo Tác nhân bên phải
+actor "Quản trị viên\n(Admin)" as Admin
+actor "Dịch vụ hệ thống\n(System Core Service)" as SystemService
+
+' Nối liên kết phía bên trái (Actor -> Use Case)
 Visitor -- UC1
 Curator -- UC2
 Curator -- UC3
 Curator -- UC4
 
-Admin -- UC3
-Admin -- UC4
-Admin -- UC5
+' Nối liên kết phía bên phải (Use Case -> Actor để đẩy Actor sang phải)
+UC3 -- Admin
+UC4 -- Admin
+UC5 -- Admin
 
-SystemService -- UC5
+UC5 -- SystemService
 @endl

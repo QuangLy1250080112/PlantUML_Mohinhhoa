@@ -1,92 +1,54 @@
 @startuml name "Hệ thống Triển lãm Trực tuyến Tương tác" title "Sequence Diagram - Hệ thống Triển lãm Trực tuyến Tương tác"
-actor "Người dùng" as User
-boundary "Phần mềm" as App
-control "Hệ thống" as System
+skinparam style strictuml
 
-== 1. Đăng nhập & Phân quyền ==
+boundary "Người dùng" as User
+control "Phần mềm" as App
+entity "Hệ thống" as System
+
 User -> App: Đăng nhập
 activate App
-App --> User: Yêu cầu nhập tài khoản, mật khẩu
+
+App -> User: Yêu cầu nhập tài khoản, mật khẩu
 deactivate App
+
+activate User
 User -> App: Nhập thông tin đăng nhập
+deactivate User
 activate App
+
 App -> System: Gửi thông tin đăng nhập
 activate System
 System -> System: Kiểm tra thông tin
-System --> App: Xác thực thành công
+System -> App: Xác thực thành công
 deactivate System
-App --> User: Trả về thông báo xác thực
+
+App -> User: Trả về thông báo xác thực
 deactivate App
+
+activate User
 User -> App: Chọn chức năng truy cập
+deactivate User
 activate App
+
 App -> System: Gửi thông tin vai trò (Role)
 activate System
 System -> System: Kiểm tra quyền hạn
-System --> App: Xác nhận đủ quyền truy cập
+System -> App: Xác nhận đủ quyền truy cập
 deactivate System
-App --> User: Trả về giao diện tương ứng
+
+App -> User: Trả về giao diện tương ứng
 deactivate App
 
-== 2. Biên tập nội dung & Tối ưu Media ==
-User -> App: Biên tập Hiện vật, Câu chuyện, Tuyến tham quan
+activate User
+User -> App: Xác nhận
+deactivate User
 activate App
-App -> System: Gửi dữ liệu biên tập
-activate System
-System -> System: Lưu trữ & thiết lập sơ đồ tuyến
-System --> App: Xác nhận lưu thành công
-deactivate System
-App --> User: Trả về kết quả lưu nội dung
-deactivate App
-User -> App: Upload Media & Cấu hình Accessibility
-activate App
-App -> System: Gửi tệp media gốc & dữ liệu hỗ trợ (UC05, UC06)
-activate System
-System -> System: Tự động nén & tối ưu (WebP/AVIF/HLS)
-System --> App: Xác nhận hoàn tất xử lý media
-deactivate System
-App --> User: Thông báo hoàn tất biên tập
-deactivate App
 
-== 3. Kiểm duyệt & Xuất bản ==
-User -> App: Yêu cầu kiểm duyệt & xuất bản
-activate App
-App -> System: Yêu cầu kiểm tra tiêu chuẩn (UC09)
+App -> System: Gửi thông tin xác nhận
 activate System
-System -> System: Kiểm tra Accessibility & Media
-System --> App: Trả về kết quả kiểm duyệt đạt
+System -> App: Cấp Session / Token
 deactivate System
-App --> User: Yêu cầu xác nhận xuất bản
-deactivate App
-User -> App: Phê duyệt xuất bản công khai
-activate App
-App -> System: Cập nhật trạng thái xuất bản
-activate System
-System --> App: Xác nhận xuất bản thành công
-deactivate System
-App --> User: Hiển thị trạng thái triển lãm công khai
-deactivate App
 
-== 4. Trải nghiệm & Tương tác ==
-User -> App: Chọn Tuyến tham quan / Câu chuyện
-activate App
-App -> System: Truy vấn dữ liệu triển lãm
-activate System
-System --> App: Trả về nội dung & media tối ưu
-deactivate System
-App --> User: Tải giao diện trải nghiệm
-deactivate App
-User -> App: Tương tác qua Bàn phím / Screen Reader
-activate App
-App --> User: Trả về phản hồi tương tác đa giác quan
-deactivate App
-
-== 5. Ghi nhận Nhật ký & Thống kê ==
-User -> App: Yêu cầu xem báo cáo thống kê
-activate App
-App -> System: Truy vấn dữ liệu thống kê
-activate System
-System --> App: Kết xuất dữ liệu tổng hợp
-deactivate System
-App --> User: Hiển thị biểu đồ & báo cáo trực quan
+App -> User: Gửi thông tin phiên làm việc
 deactivate App
 @endl
